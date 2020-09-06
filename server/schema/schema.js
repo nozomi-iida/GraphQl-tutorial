@@ -45,7 +45,7 @@ const AuthorType = new GraphQLObjectType({
 });
 
 const RootQuery = new GraphQLObjectType({
-  name: 'RootQueryType',
+  name: 'RootQueryType', //queryはデータを所得するもの
   fields: {
     book: {
       type: BookType,
@@ -81,7 +81,7 @@ const RootQuery = new GraphQLObjectType({
 });
 
 const Mutation = new graphql.GraphQLObjectType({
-  name: 'Mutation',
+  name: 'Mutation', //Mutationとはデータを更新する仕組みのこと
   fields: {
     addAuthor: {
       type: AuthorType,
@@ -111,6 +111,15 @@ const Mutation = new graphql.GraphQLObjectType({
           authorId: args.authorId,
         });
         return book.save();
+      },
+    },
+    deleteBook: {
+      type: BookType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return Book.findByIdAndDelete(args.id);
       },
     },
   },

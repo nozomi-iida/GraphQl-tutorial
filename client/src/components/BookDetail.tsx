@@ -1,20 +1,32 @@
 import React from 'react';
-import { useQuery } from 'react-apollo';
-import { getBookQuery } from '../queries/queries';
+import { useQuery, useMutation } from 'react-apollo';
+import { getBookQuery, deleteBookMutation, getBooksQuery } from '../queries/queries';
 import { IBook } from '../types';
+import { resolve } from 'dns';
 
 type Iprops = {
   bookId: string;
 };
 
 export default ({ bookId }: Iprops) => {
+  const [deleteBook] = useMutation(deleteBookMutation);
   const { data } = useQuery(getBookQuery, {
     variables: {
       id: bookId,
     },
   });
+
+  const onDeleteClick = (id: string) => {
+    deleteBook({
+      variables: { id },
+      refetchQueries: [{ query: getBooksQuery, }],
+    }).then(() => {
+      window.location.reload();
+    });
+  };
+
   return (
-    <div id="book-details">
+    <div id='book-details'>
       <p>Output book details here</p>
       {data ? (
         <>
@@ -27,8 +39,9 @@ export default ({ bookId }: Iprops) => {
               <li key={book.id}>{book.name}</li>
             ))}
           </ul>
+          <button onClick={() => onDeleteClick(data.book.id)}>削除</button>
         </>
-      ): (
+      ) : (
         <p>No book selected...</p>
       )}
     </div>
