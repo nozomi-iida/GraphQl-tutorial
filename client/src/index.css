@@ -30,7 +30,7 @@ body{
   color: #880E4F;
 }
 
-form{
+#add-book{
   background: #fff;
   padding: 20px;
   position: fixed;
@@ -56,7 +56,7 @@ form input, form select{
   box-sizing: border-box;
 }
 
-form button{
+.addButton {
   color: #fff;
   font-size: 2em;
   background: #AD1457;

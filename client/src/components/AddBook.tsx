@@ -16,7 +16,7 @@ type FormData = {
 };
 
 export default () => {
-  const { register, setValue, handleSubmit, errors } = useForm<FormData>();
+  const { register, setValue, handleSubmit } = useForm<FormData>();
   const { data, loading } = useQuery(getAuthorsQuery);
   const [addBook] = useMutation(addBookMutation);
 
@@ -56,7 +56,7 @@ export default () => {
           ))}
         </select>
       </div>
-      <button type='submit'>+</button>
+      <button className='addButton' type='submit'>+</button>
     </form>
   );
 };

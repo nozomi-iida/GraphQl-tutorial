@@ -9,7 +9,7 @@ const cors = require('cors'); //異なるlocalhostでも通信できるように
 const uri = process.env.ATLAS_URI;
 
 
-mongoose.connect(uri, ({useNewUrlParser: true, useUnifiedTopology: true}))
+mongoose.connect(uri, ({useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true}))
 mongoose.connection.once('open', () => {
   console.log('connected to database!')
 })

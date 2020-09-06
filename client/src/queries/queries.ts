@@ -53,3 +53,13 @@ export const deleteBookMutation = gql`
     }
   }
 `;
+
+export const updateBookMutation = gql`
+  mutation($id: ID!, $name: String!, $genre: String!, $authorId: ID!) {
+    updateBook(id: $id, name: $name, genre: $genre, authorId: $authorId) {
+      id
+      name
+      genre
+    }
+  }
+`
